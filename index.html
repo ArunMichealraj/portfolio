@@ -1,1089 +1,828 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Arun Michaelraj - Portfolio</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arun Michaelraj — UI/UX Designer & Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E1A;
+    --surface:#171F35;
+    --surface-2:#212B4A;
+    --line:rgba(255,255,255,0.14);
+    --violet:#8B5CF6;
+    --cyan:#2DD4FF;
+    --coral:#FF6B9D;
+    --amber:#FFB84D;
+    --text:#FFFFFF;
+    --muted:#A6B0C8;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(139,92,246,0.38), transparent 42%),
+      radial-gradient(circle at 88% 20%, rgba(45,212,255,0.30), transparent 46%),
+      radial-gradient(circle at 25% 65%, rgba(255,107,157,0.22), transparent 42%),
+      radial-gradient(circle at 80% 85%, rgba(255,184,77,0.16), transparent 40%);
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  section{position:relative;z-index:1;padding:120px 0;}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--cyan);}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.1;}
+  h2.section-title{font-size:clamp(28px,4vw,42px);margin-bottom:16px;}
+  .section-sub{color:var(--muted);max-width:560px;font-size:16px;line-height:1.7;margin-bottom:56px;}
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    backdrop-filter:blur(16px);
+    background:rgba(11,15,25,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;height:76px;padding-top:0;padding-bottom:0;}
+  .logo{font-family:var(--font-display);font-size:19px;font-weight:700;letter-spacing:0.02em;display:flex;align-items:center;gap:10px;}
+  .logo-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));box-shadow:0 0 14px var(--violet);}
+  .nav-links{display:flex;gap:36px;font-size:14px;font-weight:500;}
+  .nav-links a{color:var(--muted);transition:color .25s ease;position:relative;}
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--text);}
+  .nav-cta{
+    font-family:var(--font-mono);
+    font-size:13px;padding:10px 20px;border-radius:100px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    transition:.25s ease;
+  }
+  .nav-cta:hover{border-color:var(--cyan);box-shadow:0 0 20px rgba(34,211,238,0.25);}
+  .nav-toggle{display:none;}
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
+  /* HERO */
+  #hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:76px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+  }
+  .hero-title{
+    font-size:clamp(40px,6vw,68px);
+    letter-spacing:-0.02em;
+  }
+  .hero-title .grad{
+    background:linear-gradient(120deg,var(--violet),var(--cyan) 60%,var(--coral));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero-role{
+    font-family:var(--font-mono);
+    color:var(--muted);
+    font-size:15px;
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-role .cursor{
+    display:inline-block;width:2px;height:16px;background:var(--cyan);
+    animation:blink 1s steps(2) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  .hero-desc{margin-top:26px;color:var(--muted);font-size:16px;line-height:1.8;max-width:480px;}
+  .hero-actions{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono);
+    font-size:13px;
+    padding:14px 26px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:.3s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:linear-gradient(120deg,var(--violet),#5B3FE0);
+    color:#fff;
+    box-shadow:0 10px 30px -8px rgba(124,92,252,0.6);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -8px rgba(124,92,252,0.75);}
+  .btn-ghost{border-color:var(--line);color:var(--text);background:var(--surface);}
+  .btn-ghost:hover{border-color:var(--cyan);transform:translateY(-2px);}
+  .hero-socials{display:flex;gap:16px;margin-top:44px;}
+  .hero-socials a{
+    width:38px;height:38px;border-radius:10px;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--muted);
+    transition:.25s ease;background:var(--surface);
+  }
+  .hero-socials a:hover{color:var(--text);border-color:var(--violet);transform:translateY(-3px);}
+  .hero-socials svg{width:16px;height:16px;}
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  /* 3D tilt card */
+  .tilt-stage{perspective:1200px;}
+  .tilt-card{
+    position:relative;
+    border-radius:24px;
+    background:linear-gradient(160deg, var(--surface), var(--surface-2));
+    border:1px solid var(--line);
+    transform-style:preserve-3d;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease;
+    will-change:transform;
+    overflow:hidden;
+  }
+  .hero-card{
+    padding:0;
+    aspect-ratio:1/1.08;
+    max-width:420px;
+    margin:0 auto;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.6);
+  }
+  .hero-card .glow{
+    position:absolute;inset:-40%;
+    background:radial-gradient(circle, rgba(124,92,252,0.35), transparent 60%);
+    opacity:0;transition:opacity .3s ease;
+    pointer-events:none;
+    transform:translateZ(0);
+  }
+  .hero-card:hover .glow{opacity:1;}
+  .hero-card img{
+    width:100%;height:100%;object-fit:cover;
+    transform:translateZ(40px) scale(1.02);
+  }
+  .hero-card .card-tag{
+    position:absolute;bottom:22px;left:22px;right:22px;
+    background:rgba(11,15,25,0.65);
+    backdrop-filter:blur(10px);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 18px;
+    transform:translateZ(70px);
+    font-family:var(--font-mono);
+    font-size:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .card-tag .status-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;box-shadow:0 0 8px #4ADE80;display:inline-block;margin-right:6px;}
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:70px;align-items:start;}
+  .about-card{
+    border-radius:22px;overflow:hidden;border:1px solid var(--line);
+    aspect-ratio:4/5;
+  }
+  .about-card img{width:100%;height:100%;object-fit:cover;}
+  .about-text p{color:var(--muted);line-height:1.85;margin-bottom:18px;font-size:15.5px;}
+  .facts{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;
+  }
+  .fact{
+    padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--surface);
+  }
+  .fact .k{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+  .fact .v{font-size:14.5px;font-weight:500;}
 
-  <!-- =======================================================
-  * Template Name: iPortfolio
-  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-  * Updated: Jun 14 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .skill-card{
+    position:relative;overflow:hidden;
+    padding:26px 22px;border-radius:18px;border:1px solid var(--line);background:var(--surface);
+    transform-style:preserve-3d; transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s ease, box-shadow .35s ease;
+    will-change:transform;
+  }
+  .skill-card:hover{border-color:var(--violet);}
+  .skill-card .glow{
+    position:absolute;inset:-30%;
+    background:radial-gradient(circle, rgba(34,211,238,0.32), transparent 62%);
+    opacity:0;transition:opacity .35s ease;pointer-events:none;z-index:0;
+  }
+  .skill-card .skill-name, .skill-card .bar-track{position:relative;z-index:1;}
+  .skill-name{font-family:var(--font-display);font-size:16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:baseline;}
+  .skill-name span.pct{font-family:var(--font-mono);font-size:13px;color:var(--cyan);}
+  .bar-track{height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden;}
+  .bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--violet),var(--cyan));width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1);}
+
+  /* RESUME / TIMELINE */
+  .timeline{position:relative;max-width:760px;margin-left:auto;margin-right:auto;}
+  .timeline::before{
+    content:'';position:absolute;left:8px;top:6px;bottom:6px;width:1px;
+    background:linear-gradient(to bottom, var(--violet), var(--cyan), transparent);
+  }
+  .t-item{position:relative;padding-left:44px;margin-bottom:44px;}
+  .t-item:last-child{margin-bottom:0;}
+  .t-dot{
+    position:absolute;left:0;top:4px;width:17px;height:17px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--violet);
+    box-shadow:0 0 0 4px rgba(124,92,252,0.15);
+  }
+  .t-period{font-family:var(--font-mono);font-size:12px;color:var(--cyan);margin-bottom:6px;}
+  .t-role{font-size:19px;margin-bottom:4px;}
+  .t-org{color:var(--muted);font-size:13.5px;margin-bottom:14px;font-style:italic;}
+  .t-item ul{color:var(--muted);font-size:14.5px;line-height:1.9;}
+  .t-item li::before{content:'—  ';color:var(--violet);}
+
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:60px;}
+  .edu-card{padding:22px;border-radius:16px;border:1px solid var(--line);background:var(--surface);}
+  .edu-card .t-period{margin-bottom:10px;}
+  .edu-card h4{font-size:15.5px;margin-bottom:6px;line-height:1.4;}
+  .edu-card p{color:var(--muted);font-size:13px;}
+
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;}
+  .stat-num{font-family:var(--font-display);font-size:clamp(32px,4vw,46px);background:linear-gradient(120deg,var(--violet),var(--cyan),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat-label{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* PORTFOLIO */
+  .filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px;}
+  .filter-btn{
+    font-family:var(--font-mono);font-size:12.5px;padding:9px 18px;border-radius:100px;
+    border:1px solid var(--line);color:var(--muted);cursor:pointer;background:transparent;transition:.25s ease;
+  }
+  .filter-btn.active{color:#fff;border-color:transparent;background:linear-gradient(120deg,var(--violet),var(--cyan));}
+  .filter-btn:hover{color:var(--text);border-color:var(--cyan);background:var(--surface);}
+  .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .p-card{
+    position:relative;
+    border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--surface);
+    transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .3s ease;
+    will-change:transform;
+  }
+  .p-card:hover{border-color:rgba(124,92,252,0.5);}
+  .p-card .glow{
+    position:absolute;inset:-30%;
+    background:radial-gradient(circle, rgba(124,92,252,0.4), transparent 62%);
+    opacity:0;transition:opacity .35s ease;pointer-events:none;z-index:0;
+  }
+  .p-media{aspect-ratio:4/3;overflow:hidden;background:var(--surface-2);position:relative;z-index:1;transform:translateZ(20px);}
+  .p-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .p-card:hover .p-media img{transform:scale(1.08);}
+  .p-body{padding:18px 20px 22px;transform:translateZ(50px);position:relative;z-index:1;}
+  .p-cat{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;color:var(--cyan);}
+  .p-card[data-cat="shopify"] .p-cat{color:#4ADE80;}
+  .p-card[data-cat="webapp"] .p-cat{color:var(--cyan);}
+  .p-card[data-cat="wordpress"] .p-cat{color:var(--violet);}
+  .p-card[data-cat="logo"] .p-cat{color:var(--amber);}
+  .p-card[data-cat="ux"] .p-cat{color:var(--coral);}
+  .p-title{font-size:16.5px;margin-bottom:6px;}
+  .p-desc{color:var(--muted);font-size:13px;}
+  .p-card.hidden{display:none;}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .service-card{
+    position:relative;overflow:hidden;
+    padding:30px 24px;border-radius:20px;border:1px solid var(--line);background:var(--surface);
+    transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s ease, box-shadow .35s ease;
+    will-change:transform;
+  }
+  .service-card:hover{border-color:var(--coral);}
+  .service-card .glow{
+    position:absolute;inset:-30%;
+    background:radial-gradient(circle, rgba(255,107,157,0.35), transparent 62%);
+    opacity:0;transition:opacity .35s ease;pointer-events:none;z-index:0;
+  }
+  .service-icon{
+    position:relative;z-index:1;
+    width:46px;height:46px;border-radius:12px;margin-bottom:20px;
+    background:linear-gradient(135deg, var(--violet), var(--coral));
+    display:flex;align-items:center;justify-content:center;
+    transform:translateZ(45px);
+  }
+  .service-card h4, .service-card p{position:relative;z-index:1;}
+  .service-icon svg{width:22px;height:22px;stroke:#fff;}
+  .service-card h4{font-size:17px;margin-bottom:10px;}
+  .service-card p{color:var(--muted);font-size:13.5px;line-height:1.7;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:60px;}
+  .contact-info-card{padding:28px;border-radius:20px;border:1px solid var(--line);background:var(--surface);margin-bottom:16px;}
+  .contact-info-card .k{font-family:var(--font-mono);font-size:11px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
+  .contact-info-card .v{font-size:15px;line-height:1.6;}
+  .map-frame{border-radius:16px;overflow:hidden;border:1px solid var(--line);margin-top:16px;}
+  .map-frame iframe{width:100%;height:220px;border:0;filter:grayscale(0.4) invert(0.92) contrast(0.9);}
+
+  form.contact-form{display:grid;gap:16px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  input.f, textarea.f{
+    width:100%;padding:15px 18px;border-radius:12px;border:1px solid var(--line);
+    background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:14.5px;
+    transition:.25s ease;
+  }
+  input.f:focus, textarea.f:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,0.15);}
+  textarea.f{resize:vertical;min-height:140px;}
+  ::placeholder{color:var(--muted);}
+  .submit-btn{justify-self:start;cursor:pointer;}
+  .form-note{font-family:var(--font-mono);font-size:12px;color:var(--muted);}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:var(--muted);font-family:var(--font-mono);font-size:12.5px;}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+
+  @media (max-width:980px){
+    .hero-grid, .about-grid, .contact-grid{grid-template-columns:1fr;}
+    .skills-grid, .portfolio-grid, .services-grid{grid-template-columns:repeat(2,1fr);}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:32px;}
+    .edu-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .form-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:600px){
+    section{padding:80px 0;}
+    .skills-grid, .portfolio-grid, .services-grid{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
 </head>
+<body>
 
-<body class="index-page">
-
-  <header id="header" class="header d-flex flex-column">
-    <i class="header-toggle d-xl-none bi bi-list"></i>
-
-    <div class="profile-img">
-      <img src="assets/img/my-profile-img.jpg" alt="" class="img-fluid rounded-circle">
+<header>
+  <nav class="wrap">
+    <div class="logo"><span class="logo-dot"></span>Arun<span style="color:var(--muted)">.dev</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
     </div>
+    <a class="nav-cta" href="#contact">Say Hello →</a>
+  </nav>
+</header>
 
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">Arun Kumar Michaelraj</h1>
-    </a>
-
-    <div class="social-links text-center">
-      <a href="https://wa.me/8667643802" target="_blank" class="twitter"><i class="bi bi-whatsapp"></i></a>
-      <a href="https://www.facebook.com/ArunkumarMichaelraj" target="_blank" class="facebook"><i
-          class="bi bi-facebook"></i></a>
-      <a href="https://www.instagram.com/arunkumar_michaelraj/" target="_blank" class="instagram"><i
-          class="bi bi-instagram"></i></a>
-      <a href="https://www.behance.net/arunkumar-michaelraj" target="_blank" class="google-plus"><i
-          class="bi bi-behance"></i></a>
-      <a href="https://in.linkedin.com/in/arunkumar-michaelraj" target="_blank" class="linkedin"><i
-          class="bi bi-linkedin"></i></a>
-    </div>
-
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
-        <li><a href="#stats"><i class="bi bi-file-earmark-text navicon"></i> Project Highlights</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
-        <!-- <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-          <ul>
-            <li><a href="#">Dropdown 1</a></li>
-            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Deep Dropdown 1</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-                <li><a href="#">Deep Dropdown 4</a></li>
-                <li><a href="#">Deep Dropdown 5</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Dropdown 2</a></li>
-            <li><a href="#">Dropdown 3</a></li>
-            <li><a href="#">Dropdown 4</a></li>
-          </ul>
-        </li> -->
-        <!-- <li><a href="#areaofinterest"><i class="bi bi-hdd-stack navicon"></i> Areas Of Interest</a></li> -->
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li>
-      </ul>
-    </nav>
-
-  </header>
-
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-
-      <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>Arun Kumar Michaelraj</h2>
-        <p>I'm <span class="typed" data-typed-items="Software Developer, Designer, Freelancer">Software
-            Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span
-            class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Chennai, India</div>
+      <h1 class="hero-title">Arun Kumar<br><span class="grad">Michaelraj</span></h1>
+      <div class="hero-role">&gt; Software Developer &amp; UI/UX Designer<span class="cursor"></span></div>
+      <p class="hero-desc">7+ years building responsive web applications, e-commerce platforms and enterprise solutions with Angular, Shopify and WordPress — from pixel to production.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#portfolio">View Work</a>
+        <a class="btn btn-ghost" href="#contact">Get In Touch</a>
       </div>
-
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About Me</h2>
-        <p class="padding-30">I am a results-driven Software Developer currently working at eProdCast Software Private
-          Ltd., Chennai. With
-          nearly 7+ years of experience in web technologies, I have successfully designed and developed business
-          applications, e-commerce platforms, and enterprise solutions.</p>
-        <p class="padding-30">My expertise lies in UI/UX design, responsive web development, and frontend frameworks
-          such as Angular and
-          Bootstrap. I have hands-on experience working with WordPress and Shopify to build and customize dynamic
-          websites and online stores.</p>
-        <p class="padding-30">
-          I focus on delivering clean code, responsive layouts, API integrations, and seamless user experiences across
-          devices.
-        </p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 justify-content-center">
-          <div class="col-lg-4">
-            <img src="assets/img/my-profile-img.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 content">
-            <h2>UI/UX Designer &amp; Software Developer.</h2>
-            <p class="fst-italic py-3">
-              I design and develop modern, responsive, and high-performance web applications that deliver real business
-              value. With over 7+ years of experience in Information Technology, I specialize in creating scalable
-              digital solutions using modern frontend frameworks and CMS platforms.
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>12 Sep 1995</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong>
-                    <span>www.behance.net/arunkumar-michaelraj</span>
-                  </li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+91 8667643802</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Chennai</span></li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Nationality:</strong> <span>Indian</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>MSc Information
-                      Technology</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong>
-                    <span>arunmichealraj78@gmail.com</span>
-                  </li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
-                </ul>
-              </div>
-            </div>
-            <!-- <p class="py-3">
-              Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis.
-              Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus itaque neque.
-            </p> -->
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Skills</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row skills-content skills-animation">
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>HTML</span> <i class="val">95%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>CSS</span> <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>JavaScript</span> <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Shopify</span> <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>TypeScript</span> <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>WordPress</span> <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Photoshop</span> <i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Canva</span> <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div><!-- End Skills Item -->
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Skills Section -->
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Professional Experience</h3>
-            <div class="resume-item">
-              <h4>Software Developer</h4>
-              <h5>2021 - Present</h5>
-              <p><em>eProdCast Software Private Limited - Chennai </em></p>
-              <ul>
-                <li>Developed frontend and backend solutions for web applications.</li>
-                <li>Maintained development code using version control systems. </li>
-                <li>Designed logos, brochures, and company profiles. </li>
-                <li>Developed static company websites. </li>
-                <li>Worked with frontend frameworks such as Angular and Ionic. </li>
-                <li>Converted HTML designs to Angular and integrated forms with APIs.</li>
-                <li>Provided timely solutions to clients as per their requirements. </li>
-              </ul>
-            </div><!-- Edn Resume Item -->
-
-            <div class="resume-item">
-              <h4> Front-End UI Developer</h4>
-              <h5>2019 - 2021</h5>
-              <p><em>Sigmatix Infotech Private Limited - Puducherry </em></p>
-              <ul>
-                <li>Developed frontend and backend solutions for web applications. </li>
-                <li>Maintained development code using version control systems. </li>
-                <li>Designed logos, company brochures, and company profiles.</li>
-                <li>Developed static company websites.</li>
-                <li>Worked with frontend frameworks such as Angular. </li>
-                <li>Converted HTML designs to Angular and integrated forms with APIs. </li>
-                <li>Provided timely solutions to clients based on their requirements. </li>
-              </ul>
-            </div><!-- Edn Resume Item -->
-
-            <div class="resume-item">
-              <h4> Junior Web Designer</h4>
-              <h5>2018 - 2019</h5>
-              <p><em>OceanQ - Coimbatore </em></p>
-              <ul>
-                <li>Developed web applications for various business needs. </li>
-                <li>Created and maintained company static websites. </li>
-                <li>Designed logos, brochures, and company profiles.</li>
-                <li>Provided clients with timely solutions according to requirements.</li>
-              </ul>
-            </div><!-- Edn Resume Item -->
-          </div>
-
-
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>Master of Science &amp; Information Technology</h4>
-              <h5>2016 - 2018</h5>
-              <p><em><a href="Heber College - Trichy" target="_blank">Bishop Heber College - Trichy</a></em></p>
-              <!-- <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p> -->
-            </div><!-- Edn Resume Item -->
-
-            <div class="resume-item">
-              <h4>Bachelor of Science &amp; Information Technology</h4>
-              <h5>2013 - 2016</h5>
-              <p><em><a href="https://www.scas.ac.in/" target="_blank">Srinivasan College of Arts and Science -
-                    Perambalur</a></em></p>
-              <!-- <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p> -->
-            </div><!-- Edn Resume Item -->
-
-            <div class="resume-item">
-              <h4>HSC &amp; Computer Science</h4>
-              <h5>2012 - 2013</h5>
-              <p><em><a href="https://sdeaden.com/">S D Eaden Mat Hr Sec School - Vadalur</a></em></p>
-              <!-- <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p> -->
-            </div><!-- Edn Resume Item -->
-
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Resume Section -->
-
-    <!-- Stats Section -->
-    <section id="stats" class="stats section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Project Highlights</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="17" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>All Projects</strong> <span></span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-bag-check"></i>
-              <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Shopify</strong></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-browser-chrome"></i>
-              <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Web Application</strong></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-file-earmark-code"></i>
-              <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Web Design</strong></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-wordpress"></i>
-              <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Wordpress</strong></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-box-arrow-right"></i>
-              <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1"
-                class="purecounter"></span>
-              <p><strong>Logo Design</strong></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-
-      </div>
-
-    </section>
-    <!-- /Stats Section -->
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Welcome to my portfolio! I specialize in crafting sleek, user-friendly web applications and eye-catching
-          logos that elevate your brand. My web application designs focus on intuitive interfaces and seamless
-          functionality, ensuring a positive user experience. For logo design, I create distinctive and memorable
-          visuals that capture your brand’s essence. Explore my work to see how I blend creativity with technical
-          expertise to bring your vision to life.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-shopify">Shopify</li>
-            <li data-filter=".filter-app">Web Application</li>
-            <li data-filter=".filter-wordpress">WordPress</li>
-            <li data-filter=".filter-logo">Logo Design</li>
-            <li data-filter=".filter-ux">UX Design</li>
-          </ul><!-- End Portfolio Filters -->
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-            <!-- Shopify section -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-shopify">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/shopify/iris.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Iris Art Logo</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/shopify/iris.png" title="Product 1"
-                    data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-shopify">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/shopify/kv.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>KV</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/shopify/kv.png" title="Branding 1"
-                    data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-            <!-- Shopify section -->
-
-            <!-- application section -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/website/norand.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Norand Software</h4>
-                  <p>Norand Software website</p>
-                  <a href="assets/img/portfolio/website/norand.webp" title="Norand Software"
-                    data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/website/tabg.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>TabG</h4>
-                  <p>TabG user adding form screen</p>
-                  <a href="assets/img/portfolio/website/tabg.jpg" title="TabG" data-gallery="portfolio-gallery-app"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/website/tabg1.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>TabG Website</h4>
-                  <p>TabG e-commerce website</p>
-                  <a href="assets/img/portfolio/website/tabg1.webp" title="TabG E-commerce"
-                    data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/website/mdf.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>MDF Website</h4>
-                  <p>Uniboard MDF website</p>
-                  <a href="assets/img/portfolio/website/mdf.png" title="MDF Website"
-                    data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://zenergycom.com/MDF/en/" target="_blank" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/website/origin.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Origin Website</h4>
-                  <p>Uniboard Origin website</p>
-                  <a href="assets/img/portfolio/website/origin.png" title="Origin Website"
-                    data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.uniboard.com/en/origins" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <!-- application section -->
-
-
-            <!-- wordpress section -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-wordpress">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/wordpress/a&d link.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zenergycom A&D Link</h4>
-                  <p>Zenergycom A&D Link landing page</p>
-                  <a href="assets/img/portfolio/wordpress/a&d link.png" title="Zenergycom A&D Link"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://zenergycom.com/adlink/" target="_blank" title="More Details" class="details-link"><i
-                      class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-wordpress">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/wordpress/nextsupply.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>NextSupply Contest Entry Form</h4>
-                  <p>NextSupply contest entry form landing page</p>
-                  <a href="assets/img/portfolio/wordpress/nextsupply.png" title="NextSupply Contest Entry Form"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://nextsupply.ca/2025tshirt/" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-wordpress">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/wordpress/hettich.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Hettich Design</h4>
-                  <p>Hettich Design chapter 1 landing page</p>
-                  <a href="assets/img/portfolio/wordpress/hettich.png" title="Hettich Design"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://hettichdesign.com/chapter-1/" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-wordpress">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/wordpress/hettich1.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Hettich Design</h4>
-                  <p>Hettich Design chapter 2 landing page</p>
-                  <a href="assets/img/portfolio/wordpress/hettich1.png" title="Hettich Design"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://hettichdesign.com/chapter-2/" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-wordpress">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/wordpress/expodesign.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Expo Design</h4>
-                  <p>Expo Design exhibitors landing page</p>
-                  <a href="assets/img/portfolio/wordpress/expodesign.png" title="Expo Design"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://expodesign.ca/en/exhibitors/" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-            <!-- wordpress section -->
-
-
-            <!-- Logo Section -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-logo">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/logo/Antuvlog.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Antu Vlog Diaries</h4>
-                  <p>antuvlogdiaries Youtube Channel</p>
-                  <a href="assets/img/portfolio/logo/Antuvlog.png" title="Antu Vlog Diaries"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.youtube.com/@AntuVlogDiaries" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-logo">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/logo/Logo crazy bmg1.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Crazy 2k Bgm</h4>
-                  <p>Instagram music page logo</p>
-                  <a href="assets/img/portfolio/logo/Logo crazy bmg1.png" title="Crazy 2k Bgm"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.instagram.com/_.crazy._.2k._.bgm._" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-logo">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/logo/Logo crazy2.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Crazy 2k Pics</h4>
-                  <p>Instagram picture page logo</p>
-                  <a href="assets/img/portfolio/logo/Logo crazy2.png" title="Crazy 2k Pics"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.instagram.com/_.crazy._.2k._.pics._" target="_blank" title="More Details"
-                    class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-            <!-- Logo Section -->
-
-            <!-- UX Section -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/1.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - Robotics</h4>
-                  <p>Robotics Case Studies document for Zogx</p>
-                  <a href="assets/img/portfolio/ux/1.webp" title="Zogx - Robotics" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83427277/Robotics-Case-Studies-document-for-Zogx"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - AI</h4>
-                  <p>Artificial Intelligence Case Studies document for Zogx</p>
-                  <a href="assets/img/portfolio/ux/2.jpg" title="Zogx - AI" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83403817/Artificial-Intelligence-Case-Studies-document-for-Zogx"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/3.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - Mobile</h4>
-                  <p>Mobile Application Screen for Zogx Clients</p>
-                  <a href="assets/img/portfolio/ux/3.webp" title="Zogx - Mobile" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83458597/Mobile-Application-Screen-for-Zogx-Clients"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/4.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>HiQ - Electronics</h4>
-                  <p>Website Portfolio Design for OceanQ</p>
-                  <a href="assets/img/portfolio/ux/4.webp" title="HiQ - Electronics"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83432391/Website-Portfolio-Design-for-OceanQ" target="_blank"
-                    title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/5.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - IOT</h4>
-                  <p>Internet of Things (IOT) Case Studies document for Zogx</p>
-                  <a href="assets/img/portfolio/ux/5.webp" title="Zogx - IOT" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83427041/Internet-of-Things-(IOT)-Case-Studies-document-for-Zogx"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/6.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - WebApp</h4>
-                  <p>Web Application Case Studies document for Zogxs</p>
-                  <a href="assets/img/portfolio/ux/6.webp" title="Zogx - WebApp" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83427499/Web-Application-Case-Studies-document-for-Zogx"
-                    title="More Details" target="_blank" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/7.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - MobileApp</h4>
-                  <p>Mobile Application Case Studies document for Zogx</p>
-                  <a href="assets/img/portfolio/ux/7.webp" title="Zogx - MobileApp"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83427107/Mobile-Application-Case-Studies-document-for-Zogx"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/8.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - VR</h4>
-                  <p>Virtual Reality (VR) Case Studies document for Zogx</p>
-                  <a href="assets/img/portfolio/ux/8.webp" title="Zogx - VR" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83427365/Virtual-Reality-(VR)-Case-Studies-document-for-Zogx"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/9.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - AR</h4>
-                  <p>Augmented Reality (AR) Case Studies document for Zogx</p>
-                  <a href="assets/img/portfolio/ux/9.jpg" title="Zogx - AR" data-gallery="portfolio-gallery-book"
-                    class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83426961/Augmented-Reality-(AR)-Case-Studies-document-for-Zogx"
-                    target="_blank" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-ux">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/ux/10.webp" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Zogx - Robotics</h4>
-                  <p>Website Portfolio Design for Zogx</p>
-                  <a href="assets/img/portfolio/ux/10.webp" title="Zogx - Robotics"
-                    data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i
-                      class="bi bi-zoom-in"></i></a>
-                  <a href="https://www.behance.net/gallery/83499873/Website-Portfolio-Design-for-Zogx"
-                    title="More Details" target="_blank" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-            <!-- UX Section -->
-
-          </div><!-- End Portfolio Container -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Portfolio Section -->
-
-
-
-
-    <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>we offer specialized design services to enhance your brand's digital presence.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon flex-shrink-0"><i class="bi bi-globe"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Website Design</a></h4>
-              <p class="description">We design intuitive and responsive web applications tailored to your business
-                needs. Our focus is on creating user-centric interfaces that are both functional and visually appealing,
-                ensuring an engaging and efficient user experience.</p>
-            </div>
-          </div>
-          <!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Web Application</a></h4>
-              <p class="description">We design intuitive and responsive web applications tailored to your business
-                needs. Our focus is on creating user-centric interfaces that are both functional and visually appealing,
-                ensuring an engaging and efficient user experience.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon flex-shrink-0"><i class="bi bi-wordpress"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">WordPress Design</a></h4>
-              <p class="description">We create custom WordPress websites and web applications that are user-friendly,
-                responsive, and tailored to your needs. From sleek interfaces to seamless functionality, we ensure your
-                WordPress site stands out and performs flawlessly.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon flex-shrink-0"><i class="bi bi-binoculars"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Logo Design</a></h4>
-              <p class="description">Our logo design service delivers unique and impactful logos that reflect your
-                brand's identity. We work closely with you to craft logos that stand out, resonate with your audience,
-                and effectively communicate your brand's values.</p>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-
-    <!-- AREAS OF INTEREST -->
-    <section id="areaofinterest" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Areas Of Interest</h2>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon flex-shrink-0"><i class="bi bi-globe"></i></div>
-            <div>
-              <h4 class="title"><a href="" class="stretched-link">Web Designing</a></h4>
-            </div>
-          </div>
-          <!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Networking</a></h4>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon flex-shrink-0"><i class="bi bi-wordpress"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">UI/UX Innovation</a></h4>
-            </div>
-          </div><!-- End Service Item -->
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>WE ARE LOOKING FORWARD TO HEAR FROM YOU. CONTACT US AND SAY HELLO</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-5">
-
-            <div class="info-wrap">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Address</h3>
-                  <p>No:295, Kamaraj Nagar, Sepalanatham
-                    Neyveli-2, Viruthachalam (TK), Cuddalore</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+91-8667643802</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <p>arunmichealraj78@gmail.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d894.5612730133236!2d79.52216726953887!3d11.545201313261595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDMyJzQyLjciTiA3OcKwMzEnMjIuMSJF!5e1!3m2!1sen!2sin!4v1719405571781!5m2!1sen!2sin"
-                frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>
-
-          <div class="col-lg-7">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-              data-aos-delay="200">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Your Name</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
-                </div>
-
-                <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Message</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Contact Section -->
-
-  </main>
-
-  <!-- <footer id="footer" class="footer position-relative"> -->
-
-  <!-- <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">Arun_Michealraj</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <div class="credits"> -->
-  <!-- All the links in the footer should remain intact. -->
-  <!-- You can delete the links only if you've purchased the pro version. -->
-  <!-- Licensing information: https://bootstrapmade.com/license/ -->
-  <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url]
-        Designed by <a href="https://bootstrapmade.com/">AntoRose</a>
+      <div class="hero-socials">
+        <a href="https://wa.me/8667643802" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a href="https://www.facebook.com/ArunkumarMichaelraj" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/arunkumar_michaelraj/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://www.behance.net/arunkumar-michaelraj" aria-label="Behance" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h7M2 8v10h4.5a3 3 0 0 0 0-6H2M2 8a3 3 0 0 0 4.5-2.6M15 4h6M14 14a4 4 0 0 1 8 0v1h-8a4 4 0 0 0 8 2"/></svg></a>
+        <a href="https://in.linkedin.com/in/arunkumar-michaelraj" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 0 1 8 0v8"/></svg></a>
       </div>
     </div>
+    <div class="tilt-stage">
+      <div class="tilt-card hero-card" id="heroTilt">
+        <div class="glow"></div>
+        <img src="https://arunmichaelraj.netlify.app/assets/img/my-profile-img.jpg" alt="Arun Kumar Michaelraj">
+        <div class="card-tag"><span><span class="status-dot"></span>Available for freelance</span><span>Chennai, IN</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </footer> -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal about-card">
+      <img src="https://arunmichaelraj.netlify.app/assets/img/my-profile-img.jpg" alt="Arun working">
+    </div>
+    <div class="reveal about-text">
+      <div class="eyebrow">About Me</div>
+      <h2 class="section-title">Designing interfaces, then building them.</h2>
+      <p>I am a results-driven Software Developer currently working at eProdCast Software Private Ltd., Chennai. With nearly 7+ years of experience in web technologies, I've designed and developed business applications, e-commerce platforms, and enterprise solutions.</p>
+      <p>My expertise lies in UI/UX design, responsive web development, and frontend frameworks such as Angular and Bootstrap. I have hands-on experience working with WordPress and Shopify to build and customize dynamic websites and online stores.</p>
+      <p>I focus on delivering clean code, responsive layouts, API integrations, and seamless user experiences across devices.</p>
+      <div class="facts">
+        <div class="fact"><div class="k">Birthday</div><div class="v">12 Sep 1995</div></div>
+        <div class="fact"><div class="k">Degree</div><div class="v">MSc Information Technology</div></div>
+        <div class="fact"><div class="k">Phone</div><div class="v">+91 8667643802</div></div>
+        <div class="fact"><div class="k">Freelance</div><div class="v">Available</div></div>
+        <div class="fact"><div class="k">City</div><div class="v">Chennai, India</div></div>
+        <div class="fact"><div class="k">Email</div><div class="v" style="word-break:break-all;">arunmichealraj78@gmail.com</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+<section id="skills">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Capabilities</div>
+      <h2 class="section-title">Skills &amp; tools</h2>
+      <p class="section-sub">A frontend-first toolkit sharpened across 7+ years of client work, from static brochure sites to full e-commerce builds.</p>
+    </div>
+    <div class="skills-grid reveal" id="skillsGrid">
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">HTML <span class="pct">95%</span></div><div class="bar-track"><div class="bar-fill" data-w="95"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">CSS <span class="pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">JavaScript <span class="pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">Shopify <span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">TypeScript <span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">WordPress <span class="pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">Photoshop <span class="pct">70%</span></div><div class="bar-track"><div class="bar-fill" data-w="70"></div></div></div>
+      <div class="skill-card"><div class="glow"></div><div class="skill-name">Canva <span class="pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+    </div>
+  </div>
+</section>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+<section id="resume">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Career</div>
+      <h2 class="section-title">Resume</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center;">Professional experience and education.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-period">2021 — Present</div>
+        <div class="t-role">Software Developer</div>
+        <div class="t-org">eProdCast Software Private Limited · Chennai</div>
+        <ul>
+          <li>Developed frontend and backend solutions for web applications.</li>
+          <li>Maintained development code using version control systems.</li>
+          <li>Designed logos, brochures, and company profiles.</li>
+          <li>Worked with frontend frameworks such as Angular and Ionic.</li>
+          <li>Converted HTML designs to Angular and integrated forms with APIs.</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-period">2019 — 2021</div>
+        <div class="t-role">Front-End UI Developer</div>
+        <div class="t-org">Sigmatix Infotech Private Limited · Puducherry</div>
+        <ul>
+          <li>Developed frontend and backend solutions for web applications.</li>
+          <li>Designed logos, company brochures, and company profiles.</li>
+          <li>Worked with frontend frameworks such as Angular.</li>
+          <li>Converted HTML designs to Angular and integrated forms with APIs.</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-period">2018 — 2019</div>
+        <div class="t-role">Junior Web Designer</div>
+        <div class="t-org">OceanQ · Coimbatore</div>
+        <ul>
+          <li>Developed web applications for various business needs.</li>
+          <li>Created and maintained company static websites.</li>
+          <li>Designed logos, brochures, and company profiles.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="t-period">2016 — 2018</div>
+        <h4>Master of Science, Information Technology</h4>
+        <p>Bishop Heber College — Trichy</p>
+      </div>
+      <div class="edu-card">
+        <div class="t-period">2013 — 2016</div>
+        <h4>Bachelor of Science, Information Technology</h4>
+        <p>Srinivasan College of Arts and Science — Perambalur</p>
+      </div>
+      <div class="edu-card">
+        <div class="t-period">2012 — 2013</div>
+        <h4>HSC, Computer Science</h4>
+        <p>S D Eaden Mat Hr Sec School — Vadalur</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<section id="stats">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      <div><div class="stat-num" data-count="7">0</div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num" data-count="20">0</div><div class="stat-label">Projects Shipped</div></div>
+      <div><div class="stat-num" data-count="3">0</div><div class="stat-label">Companies</div></div>
+      <div><div class="stat-num" data-count="6">0</div><div class="stat-label">Core Tools</div></div>
+    </div>
+  </div>
+</section>
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+<section id="portfolio">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Selected Work</div>
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-sub">Web applications, WordPress builds, Shopify storefronts and brand marks — a mix of shipped client work and UX case studies.</p>
+    </div>
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="shopify">Shopify</button>
+      <button class="filter-btn" data-filter="webapp">Web Application</button>
+      <button class="filter-btn" data-filter="wordpress">WordPress</button>
+      <button class="filter-btn" data-filter="logo">Logo Design</button>
+      <button class="filter-btn" data-filter="ux">UX Design</button>
+    </div>
+    <div class="portfolio-grid reveal" id="portfolioGrid">
+
+      <a class="p-card" data-cat="shopify" href="https://arunmichaelraj.netlify.app/assets/img/portfolio/shopify/iris.png" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/shopify/iris.png" alt="Iris Art Logo"></div>
+        <div class="p-body"><div class="p-cat">Shopify</div><div class="p-title">Iris Art Logo</div><div class="p-desc">Brand mark for a Shopify storefront.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="shopify" href="https://arunmichaelraj.netlify.app/assets/img/portfolio/shopify/kv.png" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/shopify/kv.png" alt="KV"></div>
+        <div class="p-body"><div class="p-cat">Shopify</div><div class="p-title">KV</div><div class="p-desc">Branding for a Shopify project.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="webapp" href="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/norand.webp" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/norand.webp" alt="Norand Software"></div>
+        <div class="p-body"><div class="p-cat">Web Application</div><div class="p-title">Norand Software</div><div class="p-desc">Company website design and build.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="webapp" href="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/tabg.jpg" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/tabg.jpg" alt="TabG"></div>
+        <div class="p-body"><div class="p-cat">Web Application</div><div class="p-title">TabG</div><div class="p-desc">User adding form screen.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="webapp" href="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/tabg1.webp" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/tabg1.webp" alt="TabG Website"></div>
+        <div class="p-body"><div class="p-cat">Web Application</div><div class="p-title">TabG Website</div><div class="p-desc">TabG e-commerce website.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="webapp" href="https://zenergycom.com/MDF/en/" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/mdf.png" alt="MDF Website"></div>
+        <div class="p-body"><div class="p-cat">Web Application</div><div class="p-title">MDF Website</div><div class="p-desc">Uniboard MDF product website.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="webapp" href="https://www.uniboard.com/en/origins" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/website/origin.png" alt="Origin Website"></div>
+        <div class="p-body"><div class="p-cat">Web Application</div><div class="p-title">Origin Website</div><div class="p-desc">Uniboard Origin product website.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="wordpress" href="https://zenergycom.com/adlink/" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/wordpress/a&d link.png" alt="Zenergycom A&D Link"></div>
+        <div class="p-body"><div class="p-cat">WordPress</div><div class="p-title">Zenergycom A&amp;D Link</div><div class="p-desc">Landing page build.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="wordpress" href="https://nextsupply.ca/2025tshirt/" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/wordpress/nextsupply.png" alt="NextSupply Contest Entry Form"></div>
+        <div class="p-body"><div class="p-cat">WordPress</div><div class="p-title">NextSupply Contest</div><div class="p-desc">Contest entry form landing page.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="wordpress" href="https://hettichdesign.com/chapter-1/" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/wordpress/hettich.png" alt="Hettich Design"></div>
+        <div class="p-body"><div class="p-cat">WordPress</div><div class="p-title">Hettich Design — Ch.1</div><div class="p-desc">Landing page, chapter one.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="wordpress" href="https://hettichdesign.com/chapter-2/" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/wordpress/hettich1.png" alt="Hettich Design chapter 2"></div>
+        <div class="p-body"><div class="p-cat">WordPress</div><div class="p-title">Hettich Design — Ch.2</div><div class="p-desc">Landing page, chapter two.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="wordpress" href="https://expodesign.ca/en/exhibitors/" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/wordpress/expodesign.png" alt="Expo Design"></div>
+        <div class="p-body"><div class="p-cat">WordPress</div><div class="p-title">Expo Design</div><div class="p-desc">Exhibitors landing page.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="logo" href="https://www.youtube.com/@AntuVlogDiaries" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/logo/Antuvlog.png" alt="Antu Vlog Diaries"></div>
+        <div class="p-body"><div class="p-cat">Logo Design</div><div class="p-title">Antu Vlog Diaries</div><div class="p-desc">YouTube channel branding.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="logo" href="https://www.instagram.com/_.crazy._.2k._.bgm._" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/logo/Logo crazy bmg1.png" alt="Crazy 2k Bgm"></div>
+        <div class="p-body"><div class="p-cat">Logo Design</div><div class="p-title">Crazy 2k Bgm</div><div class="p-desc">Instagram music page logo.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="logo" href="https://www.instagram.com/_.crazy._.2k._.pics._" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/logo/Logo crazy2.png" alt="Crazy 2k Pics"></div>
+        <div class="p-body"><div class="p-cat">Logo Design</div><div class="p-title">Crazy 2k Pics</div><div class="p-desc">Instagram picture page logo.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="ux" href="https://www.behance.net/gallery/83427277/Robotics-Case-Studies-document-for-Zogx" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/ux/1.webp" alt="Zogx Robotics"></div>
+        <div class="p-body"><div class="p-cat">UX Design</div><div class="p-title">Zogx — Robotics</div><div class="p-desc">Case study document.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="ux" href="https://www.behance.net/gallery/83403817/Artificial-Intelligence-Case-Studies-document-for-Zogx" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/ux/2.jpg" alt="Zogx AI"></div>
+        <div class="p-body"><div class="p-cat">UX Design</div><div class="p-title">Zogx — AI</div><div class="p-desc">Case study document.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="ux" href="https://www.behance.net/gallery/83458597/Mobile-Application-Screen-for-Zogx-Clients" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/ux/3.webp" alt="Zogx Mobile"></div>
+        <div class="p-body"><div class="p-cat">UX Design</div><div class="p-title">Zogx — Mobile</div><div class="p-desc">Mobile app screens.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="ux" href="https://www.behance.net/gallery/83432391/Website-Portfolio-Design-for-OceanQ" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/ux/4.webp" alt="HiQ Electronics"></div>
+        <div class="p-body"><div class="p-cat">UX Design</div><div class="p-title">HiQ — Electronics</div><div class="p-desc">Portfolio design for OceanQ.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="ux" href="https://www.behance.net/gallery/83427041/Internet-of-Things-(IOT)-Case-Studies-document-for-Zogx" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/ux/5.webp" alt="Zogx IOT"></div>
+        <div class="p-body"><div class="p-cat">UX Design</div><div class="p-title">Zogx — IOT</div><div class="p-desc">Case study document.</div></div>
+      </a>
+
+      <a class="p-card" data-cat="ux" href="https://www.behance.net/gallery/83427499/Web-Application-Case-Studies-document-for-Zogx" target="_blank" rel="noopener"><div class="glow"></div>
+        <div class="p-media"><img src="https://arunmichaelraj.netlify.app/assets/img/portfolio/ux/6.webp" alt="Zogx WebApp"></div>
+        <div class="p-body"><div class="p-cat">UX Design</div><div class="p-title">Zogx — WebApp</div><div class="p-desc">Case study document.</div></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">What I Offer</div>
+      <h2 class="section-title">Services</h2>
+      <p class="section-sub">Specialized design and development services to sharpen your brand's digital presence.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card"><div class="glow"></div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
+        <h4>Website Design</h4>
+        <p>Intuitive, responsive web applications tailored to your business needs — user-centric interfaces that are functional and visually appealing.</p>
+      </div>
+      <div class="service-card"><div class="glow"></div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h4>Web Application</h4>
+        <p>End-to-end application builds with clean architecture, API integrations, and interfaces designed for real workflows.</p>
+      </div>
+      <div class="service-card"><div class="glow"></div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18zM3 12h18"/></svg></div>
+        <h4>WordPress Design</h4>
+        <p>Custom WordPress websites and applications that are user-friendly, responsive, and tailored to your needs.</p>
+      </div>
+      <div class="service-card"><div class="glow"></div>
+        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 22h20L12 2z"/></svg></div>
+        <h4>Logo Design</h4>
+        <p>Unique, impactful logos that reflect your brand's identity and effectively communicate its values.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 class="section-title">Let's build something.</h2>
+      <p class="section-sub">Looking forward to hearing from you — reach out and say hello.</p>
+      <div class="contact-info-card"><div class="k">Address</div><div class="v">No:295, Kamaraj Nagar, Sepalanatham, Neyveli-2, Viruthachalam (TK), Cuddalore</div></div>
+      <div class="contact-info-card"><div class="k">Call Us</div><div class="v">+91 8667643802</div></div>
+      <div class="contact-info-card"><div class="k">Email Us</div><div class="v">arunmichealraj78@gmail.com</div></div>
+      <div class="map-frame">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d894.5612730133236!2d79.52216726953887!3d11.545201313261595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTHCsDMyJzQyLjciTiA3OcKwMzEnMjIuMSJF!5e1!3m2!1sen!2sin!4v1719405571781!5m2!1sen!2sin" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <input class="f" type="text" placeholder="Your Name" required>
+          <input class="f" type="email" placeholder="Your Email" required>
+        </div>
+        <input class="f" type="text" placeholder="Subject" required>
+        <textarea class="f" placeholder="Message" required></textarea>
+        <button class="btn btn-primary submit-btn" type="submit">Send Message →</button>
+        <div class="form-note" id="formNote"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Arun Kumar Michaelraj — Built with care in Chennai.
+</footer>
+
+<script>
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.id === 'skillsGrid'){ animateBars(); }
+        if(e.target.querySelector && e.target.querySelector('.stat-num')){ animateStats(e.target); }
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  function animateBars(){
+    document.querySelectorAll('.bar-fill').forEach(b=>{
+      requestAnimationFrame(()=>{ b.style.width = b.dataset.w + '%'; });
+    });
+  }
+
+  function animateStats(container){
+    container.querySelectorAll('.stat-num').forEach(el=>{
+      const target = parseInt(el.dataset.count,10);
+      let cur = 0;
+      const step = Math.max(1, Math.round(target/40));
+      const t = setInterval(()=>{
+        cur += step;
+        if(cur>=target){cur=target; clearInterval(t);}
+        el.textContent = cur;
+      },30);
+    });
+  }
+
+  // 3D tilt + jump effect
+  function attachTilt(el, opts={}){
+    const intensity = opts.intensity ?? 14;
+    const persp = opts.perspective ?? 800;
+    const lift = opts.lift ?? 30;
+    const scale = opts.scale ?? 1.05;
+    const shadowColor = opts.shadowColor ?? '124,92,252';
+    let rect;
+
+    el.addEventListener('mouseenter', ()=>{
+      rect = el.getBoundingClientRect();
+      el.style.zIndex = 10;
+      const glow = el.querySelector('.glow');
+      if(glow) glow.style.opacity = 1;
+    });
+    el.addEventListener('mousemove', (e)=>{
+      if(!rect) rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left)/rect.width - 0.5;
+      const y = (e.clientY - rect.top)/rect.height - 0.5;
+      el.style.transform = `perspective(${persp}px) rotateY(${x*intensity}deg) rotateX(${-y*intensity}deg) translateY(-10px) translateZ(${lift}px) scale(${scale})`;
+      el.style.boxShadow = `${-x*36}px ${-y*36 + 26}px 55px -14px rgba(${shadowColor},0.5)`;
+      const glow = el.querySelector('.glow');
+      if(glow){ glow.style.transform = `translate(${x*50}px, ${y*50}px)`; }
+    });
+    el.addEventListener('mouseleave', ()=>{
+      el.style.transform = `perspective(${persp}px) rotateY(0deg) rotateX(0deg) translateY(0) translateZ(0) scale(1)`;
+      el.style.boxShadow = '';
+      el.style.zIndex = 1;
+      const glow = el.querySelector('.glow');
+      if(glow) glow.style.opacity = 0;
+    });
+  }
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches === false){
+    attachTilt(document.getElementById('heroTilt'), {intensity:16, perspective:1000, lift:60, scale:1.04, shadowColor:'124,92,252'});
+    document.querySelectorAll('.skill-card').forEach(el=>attachTilt(el, {intensity:12, perspective:700, lift:22, scale:1.045, shadowColor:'34,211,238'}));
+    document.querySelectorAll('.p-card').forEach(el=>attachTilt(el, {intensity:16, perspective:800, lift:35, scale:1.06, shadowColor:'124,92,252'}));
+    document.querySelectorAll('.service-card').forEach(el=>attachTilt(el, {intensity:12, perspective:700, lift:24, scale:1.05, shadowColor:'255,107,157'}));
+  }
+
+  // portfolio filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.p-card');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(c=>{
+        c.classList.toggle('hidden', f!=='all' && c.dataset.cat !== f);
+      });
+    });
+  });
+
+  function handleSubmit(e){
+    e.preventDefault();
+    document.getElementById('formNote').textContent = 'Your message has been sent. Thank you!';
+    e.target.reset();
+  }
+</script>
 
 </body>
-
 </html>
